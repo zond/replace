@@ -39,8 +39,13 @@ func replace(dir string, from *regexp.Regexp, to string, dryrun bool) error {
 					ToFile:   "Replacement",
 					Context:  3,
 				}
-				text, _ := difflib.GetUnifiedDiffString(diff)
-				fmt.Printf("*** %v ***\n%v\n", p, text)
+				text, err := difflib.GetUnifiedDiffString(diff)
+				if err != nil {
+					return err
+				}
+				if strings.TrimSpace(text) != "" {
+					fmt.Printf("*** %v ***\n%v\n", p, text)
+				}
 			} else {
 				if err := ioutil.WriteFile(p, from.ReplaceAll(b, []byte(to)), child.Mode()); err != nil {
 					return err

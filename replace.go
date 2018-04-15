@@ -40,7 +40,7 @@ func replace(dir string, from *regexp.Regexp, to string, dryrun bool) error {
 					Context:  3,
 				}
 				text, _ := difflib.GetUnifiedDiffString(diff)
-				fmt.Printf("%v\t%v\n", p, text)
+				fmt.Printf("*** %v ***\n%v\n", p, text)
 			} else {
 				if err := ioutil.WriteFile(p, from.ReplaceAll(b, []byte(to)), child.Mode()); err != nil {
 					return err

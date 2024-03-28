@@ -56,7 +56,7 @@ func replaceDir(dir string, from *regexp.Regexp, to string, dryrun bool) error {
 		}
 		p := filepath.Join(dir, child.Name())
 		if child.IsDir() {
-			if err := replacePath(p, from, to, dryrun); err != nil {
+			if err := replaceDir(p, from, to, dryrun); err != nil {
 				return err
 			}
 		} else {
